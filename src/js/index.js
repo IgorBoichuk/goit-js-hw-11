@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Notiflix from 'notiflix';
+import Notiflix, { Notify } from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
@@ -7,6 +7,8 @@ import { fetchAnimals } from './fetchAnimals';
 
 const gallery = document.querySelector('.gallery');
 const form = document.querySelector('.search-form');
+loadMoreBtn = document.querySelector('.loadMoreBtn');
+loadMoreBtn.addEventListener('click', moreBtn);
 
 let perPage = 12;
 let page = 1;
@@ -23,9 +25,9 @@ form.addEventListener('submit', async event => {
   if (inputFormValue === '') {
     return;
   }
-  const data = await fetchAnimals(query, perPage, page);
-  // console.log(data.hits);
-  markupContent(data);
+  fetchAnimals(query, perPage, page).then(checkSearchData);
+
+  markupContent;
 });
 
 function markupContent(data) {
@@ -60,6 +62,7 @@ function markupContent(data) {
       }
     )
     .join('');
+  // loadMoreBtn.classList.add('hidden');                 -------------не працює
   gallery.insertAdjacentHTML('afterbegin', markup);
 }
 
@@ -68,4 +71,24 @@ function removeItems() {
   gallery.innerHTML = '';
 }
 
-function checkSearch() {}
+function checkSearchData(search) {
+  // console.log(search.total);
+  const total = search.total;
+  if (total > 0) {
+    // loadMoreBtn.classList.remove('hidden');              -------------не працює
+    Notiflix.Notify.success(`We have the ${total} pictures fo you!`);
+    markupContent(search);
+  }
+  if (total <= 0) {
+    // loadMoreBtn.classList.add('hidden');               -------------не працює
+    Notiflix.Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+    removeItems();
+  }
+}
+
+function moreBtn() {
+  page += 1;
+  fetchAnimals(query, perPage, page).then(checkSearchData);
+}
