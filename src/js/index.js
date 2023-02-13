@@ -8,7 +8,7 @@ import { fetchAnimals } from './fetchAnimals';
 const gallery = document.querySelector('.gallery');
 const form = document.querySelector('.search-form');
 
-let perPage = 40;
+let perPage = 12;
 let page = 1;
 let maxPage = 0;
 let query = '';
@@ -16,6 +16,7 @@ let query = '';
 form.addEventListener('submit', async event => {
   query = event.target.elements.searchQuery.value;
   event.preventDefault();
+  removeItems();
 
   let inputFormValue = query.toLowerCase().trim();
 
@@ -23,7 +24,7 @@ form.addEventListener('submit', async event => {
     return;
   }
   const data = await fetchAnimals(query, perPage, page);
-  console.log(data.hits);
+  // console.log(data.hits);
   markupContent(data);
 });
 
@@ -61,3 +62,10 @@ function markupContent(data) {
     .join('');
   gallery.insertAdjacentHTML('afterbegin', markup);
 }
+
+function removeItems() {
+  page = 1;
+  gallery.innerHTML = '';
+}
+
+function checkSearch() {}
