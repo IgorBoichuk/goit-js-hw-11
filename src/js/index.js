@@ -15,3 +15,5 @@ form.addEventListener('submit', event => {
 
   fetchAnimals(query);
 });
+
+// fetch is done, need make the DOM elements Creator
