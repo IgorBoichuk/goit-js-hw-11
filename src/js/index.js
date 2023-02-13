@@ -17,7 +17,7 @@ form.addEventListener('submit', async event => {
   query = event.target.elements.searchQuery.value;
   event.preventDefault();
 
-  inputFormValue = query.toLowerCase().trim();
+  let inputFormValue = query.toLowerCase().trim();
 
   if (inputFormValue === '') {
     return;
