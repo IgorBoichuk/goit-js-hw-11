@@ -36,6 +36,7 @@ input {
 }
 
 img {
+  display: block;
   width: 380px;
   height: 280px;
 }
@@ -54,7 +55,7 @@ img {
 
 .photo-card {
   border: #6466ff 1px solid;
-  width: 380px;
+  width: 381px;
 }
 
 .loadMoreBtn {
