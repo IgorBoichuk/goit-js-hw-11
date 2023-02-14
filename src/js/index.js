@@ -43,7 +43,9 @@ function markupContent(data) {
         downloads,
       }) => {
         return `<div class="photo-card">
+        <a class="gallery__item" href="${largeImageURL}">
         <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+        </a>
         <div class="info">
           <p class="info-item">
             <b>Likes ${likes}</b>
@@ -64,6 +66,11 @@ function markupContent(data) {
     .join('');
 
   gallery.insertAdjacentHTML('beforeend', markup);
+  let galleryLightbox = new SimpleLightbox('.photo-card a', {
+    captionsData: 'alt',
+    captionDelay: 250,
+    captionPosition: 'bottom',
+  });
 }
 
 function removeItems() {
@@ -75,7 +82,6 @@ function checkSearchData(search) {
   // console.log(search.total);
   const total = search.total;
   if (total > 0) {
-    console.log(loadMoreBtn);
     loadMoreBtn.classList.remove('hidden');
 
     Notiflix.Notify.success(`We have the ${total} pictures fo you!`);
