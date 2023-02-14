@@ -41,8 +41,16 @@ img {
 }
 
 .info {
-  padding-left: 5px;
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }
+
+// .info-item {
+//   width: 20%;
+//   text-align: center;
+// }
 
 .photo-card {
   border: #6466ff 1px solid;
@@ -51,4 +59,11 @@ img {
 .hidden {
   // visibility: hidden;
   display: none;
+}
+
+.loadMoreBtn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 60px;
 }

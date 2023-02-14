@@ -7,7 +7,7 @@ import { fetchAnimals } from './fetchAnimals';
 
 const gallery = document.querySelector('.gallery');
 const form = document.querySelector('.search-form');
-loadMoreBtn = document.querySelector('.loadMoreBtn');
+const loadMoreBtn = document.querySelector('.loadMoreBtn');
 loadMoreBtn.addEventListener('click', moreBtn);
 
 let perPage = 12;
@@ -62,7 +62,7 @@ function markupContent(data) {
       }
     )
     .join('');
-  // loadMoreBtn.classList.add('hidden');                 -------------не працює
+
   gallery.insertAdjacentHTML('afterbegin', markup);
 }
 
@@ -75,12 +75,15 @@ function checkSearchData(search) {
   // console.log(search.total);
   const total = search.total;
   if (total > 0) {
-    // loadMoreBtn.classList.remove('hidden');              -------------не працює
+    console.log(loadMoreBtn);
+    // loadMoreBtn.classList.add('hidden');
+    loadMoreBtn.classList.remove('hidden');
+
     Notiflix.Notify.success(`We have the ${total} pictures fo you!`);
     markupContent(search);
   }
   if (total <= 0) {
-    // loadMoreBtn.classList.add('hidden');               -------------не працює
+    loadMoreBtn.classList.add('hidden');
     Notiflix.Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
