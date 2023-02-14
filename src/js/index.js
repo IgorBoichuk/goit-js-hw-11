@@ -63,7 +63,7 @@ function markupContent(data) {
     )
     .join('');
 
-  gallery.insertAdjacentHTML('afterbegin', markup);
+  gallery.insertAdjacentHTML('beforeend', markup);
 }
 
 function removeItems() {
@@ -76,7 +76,6 @@ function checkSearchData(search) {
   const total = search.total;
   if (total > 0) {
     console.log(loadMoreBtn);
-    // loadMoreBtn.classList.add('hidden');
     loadMoreBtn.classList.remove('hidden');
 
     Notiflix.Notify.success(`We have the ${total} pictures fo you!`);

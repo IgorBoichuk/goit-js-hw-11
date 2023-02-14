@@ -56,14 +56,13 @@ img {
   border: #6466ff 1px solid;
 }
 
-.hidden {
-  // visibility: hidden;
-  display: none;
-}
-
 .loadMoreBtn {
   display: block;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 60px;
+}
+
+.hidden {
+  display: none;
 }
