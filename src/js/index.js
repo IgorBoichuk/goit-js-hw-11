@@ -10,7 +10,7 @@ const form = document.querySelector('.search-form');
 const loadMoreBtn = document.querySelector('.loadMoreBtn');
 loadMoreBtn.addEventListener('click', moreBtn);
 
-let perPage = 3;
+let perPage = 40;
 let page = 1;
 let maxPage = 0;
 let query = '';
