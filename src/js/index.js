@@ -3,14 +3,14 @@ import Notiflix, { Notify } from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-import { fetchAnimals } from './fetchAnimals';
+import { fetchData } from './fetchData';
 
 const gallery = document.querySelector('.gallery');
 const form = document.querySelector('.search-form');
 const loadMoreBtn = document.querySelector('.loadMoreBtn');
 loadMoreBtn.addEventListener('click', moreBtn);
 
-let perPage = 12;
+let perPage = 3;
 let page = 1;
 let maxPage = 0;
 let query = '';
@@ -25,9 +25,15 @@ form.addEventListener('submit', async event => {
   if (inputFormValue === '') {
     return;
   }
-  fetchAnimals(query, perPage, page).then(checkSearchData);
+  fetchData(query, perPage, page).then(checkSearchData);
 
   markupContent;
+});
+
+let galleryLightbox = new SimpleLightbox('.photo-card a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+  captionPosition: 'bottom',
 });
 
 function markupContent(data) {
@@ -66,28 +72,28 @@ function markupContent(data) {
     .join('');
 
   gallery.insertAdjacentHTML('beforeend', markup);
-  let galleryLightbox = new SimpleLightbox('.photo-card a', {
-    captionsData: 'alt',
-    captionDelay: 250,
-    captionPosition: 'bottom',
-  });
 }
 
 function removeItems() {
   page = 1;
   gallery.innerHTML = '';
+  loadMoreBtn.classList.add('hidden');
 }
 
 function checkSearchData(search) {
   // console.log(search.total);
+
   const total = search.total;
+
   if (total > 0) {
     loadMoreBtn.classList.remove('hidden');
 
     Notiflix.Notify.success(`We have the ${total} pictures fo you!`);
     markupContent(search);
+    galleryLightbox.refresh();
   }
-  if (total <= 0) {
+
+  if (total === 0) {
     loadMoreBtn.classList.add('hidden');
     Notiflix.Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
@@ -98,5 +104,6 @@ function checkSearchData(search) {
 
 function moreBtn() {
   page += 1;
-  fetchAnimals(query, perPage, page).then(checkSearchData);
+
+  fetchData(query, perPage, page).then(checkSearchData);
 }
