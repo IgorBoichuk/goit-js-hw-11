@@ -100,6 +100,13 @@ function checkSearchData(search) {
     );
     removeItems();
   }
+
+  if (total > perPage) {
+    loadMoreBtn.classList.remove('hidden');
+  }
+  if (maxPage <= page) {
+    loadMoreBtn.classList.add('hidden');
+  }
 }
 
 function moreBtn() {
